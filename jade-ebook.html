@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<meta name="color-scheme" content="dark">
+<title>Jade — Ebook Mindset & Objectifs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --black2: #111111;
+    --black3: #181818;
+    --white: #ffffff;
+    --offwhite: #f9f4f6;
+    --pink: #f472b6;
+    --pink-light: #fda4cf;
+    --pink-pale: #fce7f3;
+    --pink-dark: #db2777;
+    --gold: #d4af6a;
+    --gold2: #f0d49a;
+    --border: rgba(244,114,182,0.15);
+    --border2: rgba(255,255,255,0.08);
+    --text: #e8e0e4;
+    --muted: #9a8a92;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: #080808 !important;
+  }
+
+  body {
+    background: #080808 !important;
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .section,
+  .forwho-section,
+  div[style*="background:var(--black)"],
+  div[style*="background: var(--black)"] {
+    background: #080808 !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 50% -5%, rgba(244,114,182,0.22) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 35% at 85% 85%, rgba(212,175,106,0.1) 0%, transparent 55%),
+      radial-gradient(ellipse 30% 30% at 10% 70%, rgba(244,114,182,0.08) 0%, transparent 50%);
+  }
+
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(244,114,182,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(244,114,182,0.12);
+    border: 1px solid rgba(244,114,182,0.35);
+    color: var(--pink-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 9px 22px;
+    border-radius: 100px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(.16,1,.3,1) 0.1s forwards;
+  }
+
+  .pill::before { content: '✦'; font-size: 8px; color: var(--pink); }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(54px, 13vw, 108px);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(.16,1,.3,1) 0.25s forwards;
+  }
+
+  .hero h1 .line1 { display: block; color: var(--white); }
+  .hero h1 .line2 {
+    display: block;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--pink-light), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero h1 .line3 { display: block; color: var(--white); }
+
+  .hero-desc {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.75;
+    max-width: 480px;
+    margin: 0 auto 52px;
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(.16,1,.3,1) 0.4s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(.16,1,.3,1) 0.55s forwards;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--pink-dark) 0%, var(--pink) 50%, var(--pink-light) 100%);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 18px 48px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 0 40px rgba(244,114,182,0.45), 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 65px rgba(244,114,182,0.6), 0 8px 28px rgba(0,0,0,0.6);
+  }
+
+  .hero-price {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .hero-price strong {
+    color: var(--gold2);
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--black2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat {
+    padding: 32px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 90px 24px;
+    max-width: 680px;
+    margin: 0 auto;
+    background: #080808 !important;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--pink);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+
+  .section h2 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .body-text {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .body-text strong { color: var(--white); font-weight: 600; }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    margin: 48px 0;
+    padding: 36px 32px;
+    background: linear-gradient(135deg, rgba(244,114,182,0.08), rgba(212,175,106,0.06));
+    border: 1px solid rgba(244,114,182,0.2);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pull-quote::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px;
+    color: var(--pink);
+    opacity: 0.12;
+    position: absolute;
+    top: -20px;
+    left: 16px;
+    line-height: 1;
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.55;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── CHAPTERS ── */
+  .chapters-section {
+    background: var(--black2);
+    padding: 90px 24px;
+    border-top: 1px solid var(--border2);
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .chapters-inner { max-width: 680px; margin: 0 auto; }
+
+  .chapters-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 0;
+  }
+
+  .chapters-inner h2 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .chapters-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 48px;
+  }
+
+  .chapter-card {
+    background: var(--black3);
+    border: 1px solid var(--border2);
+    border-radius: 18px;
+    padding: 26px 24px;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 18px;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.2s, background 0.2s;
+  }
+
+  .chapter-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chapter-card:hover {
+    border-color: rgba(244,114,182,0.35);
+    background: rgba(244,114,182,0.04);
+  }
+
+  .ch-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(244,114,182,0.15), rgba(212,175,106,0.1));
+    border: 1px solid rgba(244,114,182,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .ch-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 6px;
+  }
+
+  .ch-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .ch-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── FOR WHO ── */
+  .forwho-section {
+    padding: 90px 24px;
+    max-width: 680px;
+    margin: 0 auto;
+    background: #080808 !important;
+  }
+
+  .checks {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .check-item:first-child { padding-top: 0; }
+
+  .check-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(244,114,182,0.18), rgba(212,175,106,0.1));
+    border: 1px solid rgba(244,114,182,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--pink-light);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--black2);
+    padding: 90px 24px;
+    border-top: 1px solid var(--border2);
+  }
+
+  .about-inner { max-width: 680px; margin: 0 auto; }
+
+  .about-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+  }
+
+  .about-inner h2 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .about-card {
+    background: var(--black);
+    border: 1px solid rgba(244,114,182,0.2);
+    border-radius: 24px;
+    padding: 40px 36px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pink), var(--gold2), transparent);
+  }
+
+  .about-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 22px;
+    line-height: 1;
+  }
+
+  .about-card p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.85;
+    margin-bottom: 16px;
+  }
+
+  .about-card p:last-child { margin-bottom: 0; }
+  .about-card p strong { color: var(--white); font-weight: 600; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 110px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(244,114,182,0.14) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(212,175,106,0.05) 0%, transparent 55%);
+  }
+
+  .cta-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+
+  .cta-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(46px, 10vw, 84px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .cta-section h2 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cta-section p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 52px;
+  }
+
+  .price-display { margin-bottom: 36px; }
+
+  .price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .price-amount sup {
+    font-size: 30px;
+    vertical-align: top;
+    margin-top: 14px;
+    background: linear-gradient(135deg, var(--pink), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .price-info {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .btn-big {
+    background: linear-gradient(135deg, var(--pink-dark) 0%, var(--pink) 50%, var(--pink-light) 100%);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 22px 60px;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 0 55px rgba(244,114,182,0.45), 0 8px 28px rgba(0,0,0,0.6);
+    display: inline-block;
+  }
+
+  .btn-big:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 80px rgba(244,114,182,0.65), 0 12px 36px rgba(0,0,0,0.7);
+  }
+
+  .secure-note {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    background: var(--black2);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="pill">Ebook · 30 pages · Jade</div>
+    <h1>
+      <span class="line1">Reprends</span>
+      <span class="line2">le contrôle</span>
+      <span class="line3">de ta vie</span>
+    </h1>
+    <p class="hero-desc">Le guide complet pour transformer ton mindset, construire ta vision et atteindre tes objectifs — pas dans 5 ans, <strong>maintenant.</strong></p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.querySelector('.cta-section').scrollIntoView({behavior:'smooth'})">
+        Obtenir l'ebook — 37 € →
+      </button>
+      <p class="hero-price">Accès immédiat · Format PDF · <strong>37 €</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">30</span>
+    <span class="stat-label">Pages</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">6</span>
+    <span class="stat-label">Chapitres</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">21</span>
+    <span class="stat-label">Jours pour changer</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div style="background:#080808 !important;">
+  <div class="section">
+    <span class="tag reveal">Le vrai problème</span>
+    <h2 class="reveal">Tu sais ce que tu veux.<br><em>Alors pourquoi tu n'avances pas ?</em></h2>
+    <p class="body-text reveal">Tu fixes des objectifs. Tu recommences. Tu procrastines. Tu doutes. Et tu te demandes pourquoi certains y arrivent et pas toi.</p>
+    <p class="body-text reveal">La réponse n'est pas dans ta motivation. Elle n'est pas dans tes compétences. Elle est dans <strong>ce qui se passe dans ta tête</strong> — dans les croyances que tu portes sans même le savoir, dans les schémas que ton subconscient répète en boucle.</p>
+
+    <div class="pull-quote reveal">
+      <p>"Tu n'as pas besoin de te transformer du jour au lendemain. Tu as besoin de comprendre comment fonctionne ton cerveau — et de lui donner les bonnes instructions."</p>
+    </div>
+
+    <p class="body-text reveal">Cet ebook, c'est exactement ça. <strong>Concret, direct, applicable dès aujourd'hui.</strong> Pas de théorie inutile. Que des outils qui fonctionnent vraiment.</p>
+  </div>
+</div>
+
+<!-- CHAPTERS -->
+<div class="chapters-section">
+  <div class="chapters-inner">
+    <span class="tag reveal">Au programme</span>
+    <h2 class="reveal">Les 6 chapitres<br><em>de l'ebook</em></h2>
+    <div class="chapters-grid">
+
+      <div class="chapter-card">
+        <div class="ch-icon">🧠</div>
+        <div>
+          <p class="ch-num">Chapitre 01</p>
+          <h3 class="ch-title">Le Mindset</h3>
+          <p class="ch-desc">Comprends pourquoi ta façon de penser détermine tout. Fixed mindset vs growth mindset — et comment basculer du bon côté pour avancer enfin.</p>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="ch-icon">🎯</div>
+        <div>
+          <p class="ch-num">Chapitre 02</p>
+          <h3 class="ch-title">Le Vision Board</h3>
+          <p class="ch-desc">Crée une vision claire et puissante de ta vie idéale. Apprends à visualiser concrètement pour que ton cerveau travaille pour toi, même quand tu dors.</p>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="ch-icon">🔥</div>
+        <div>
+          <p class="ch-num">Chapitre 03</p>
+          <h3 class="ch-title">La Discipline</h3>
+          <p class="ch-desc">La motivation passe. La discipline reste. Découvre comment construire des habitudes solides qui tiennent dans la durée, même les jours sans envie.</p>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="ch-icon">📅</div>
+        <div>
+          <p class="ch-num">Chapitre 04</p>
+          <h3 class="ch-title">La Technique des 21 Jours</h3>
+          <p class="ch-desc">La méthode scientifique pour créer une nouvelle habitude en 21 jours. Un plan d'action concret pour reprogrammer ton cerveau durablement.</p>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="ch-icon">💡</div>
+        <div>
+          <p class="ch-num">Chapitre 05</p>
+          <h3 class="ch-title">Le Conscient & le Subconscient</h3>
+          <p class="ch-desc">Comprends la différence entre tes deux cerveaux. Apprends à programmer ton subconscient pour qu'il travaille dans le bon sens, automatiquement.</p>
+        </div>
+      </div>
+
+      <div class="chapter-card">
+        <div class="ch-icon">⛓️</div>
+        <div>
+          <p class="ch-num">Chapitre 06</p>
+          <h3 class="ch-title">Les Blocages Limitants</h3>
+          <p class="ch-desc">Identifie et détruis les croyances qui t'empêchent d'avancer. Des exercices concrets pour libérer ce qui te retient depuis trop longtemps.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOR WHO -->
+<div style="background:#080808 !important;">
+  <div class="forwho-section">
+    <span class="tag reveal">Pour qui ?</span>
+    <h2 class="reveal">Cet ebook est fait<br><em>pour toi si…</em></h2>
+    <div class="checks">
+      <div class="check-item reveal">
+        <div class="check-icon">✦</div>
+        <span>Tu veux atteindre tes objectifs mais quelque chose t'en empêche toujours</span>
+      </div>
+      <div class="check-item reveal">
+        <div class="check-icon">✦</div>
+        <span>Tu procrastines et tu ne comprends pas d'où ça vient vraiment</span>
+      </div>
+      <div class="check-item reveal">
+        <div class="check-icon">✦</div>
+        <span>Tu manques de discipline et tu voudrais être plus constant(e)</span>
+      </div>
+      <div class="check-item reveal">
+        <div class="check-icon">✦</div>
+        <span>Tu sens que tes pensées négatives te sabotent en permanence</span>
+      </div>
+      <div class="check-item reveal">
+        <div class="check-icon">✦</div>
+        <span>Tu veux un vrai changement durable, pas juste un boost de motivation de 3 jours</span>
+      </div>
+      <div class="check-item reveal">
+        <div class="check-icon">✦</div>
+        <span>Tu es prêt(e) à passer à l'action avec une méthode claire et concrète</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about-section">
+  <div class="about-inner">
+    <span class="tag reveal">Qui je suis</span>
+    <h2 class="reveal">Derrière <em>l'ebook</em></h2>
+    <div class="about-card reveal">
+      <div class="about-name">Jade.</div>
+      <p>Je suis passée par là. Les objectifs non atteints, les habitudes abandonnées, le doute permanent. Pendant longtemps, je pensais que c'était moi le problème.</p>
+      <p>Jusqu'au jour où j'ai compris que <strong>ce n'était pas une question de volonté — c'était une question de mindset.</strong> J'ai commencé à travailler sur ma façon de penser, sur mon subconscient, sur mes croyances limitantes.</p>
+      <p>Et tout a changé. Pas du jour au lendemain. Mais durablement.</p>
+      <p>Cet ebook, c'est tout ce que j'aurais voulu avoir au départ. <strong>Simple, concret, efficace.</strong> Rien de superficiel. Juste ce qui marche vraiment.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <span class="tag reveal">C'est le moment</span>
+    <h2 class="reveal">Ton mindset,<br><em>ton avenir.</em></h2>
+    <p class="reveal">30 pages pour tout changer. Disponible immédiatement en PDF, à lire sur ton téléphone, ta tablette ou ton ordinateur.</p>
+    <div class="price-display reveal">
+      <div class="price-amount"><sup>€</sup>37</div>
+      <p class="price-info">Paiement unique · Accès à vie · Format PDF</p>
+    </div>
+    <button class="btn-big reveal">
+      Je veux l'ebook maintenant →
+    </button>
+    <p class="secure-note reveal">🔒 &nbsp; Paiement 100% sécurisé</p>
+  </div>
+</div>
+
+<footer>© 2025 Jade · Tous droits réservés</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal, .chapter-card').forEach((el, i) => {
+    el.dataset.delay = i * 60;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
